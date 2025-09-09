@@ -169,7 +169,7 @@ export default function CopilotTetris() {
   const [lines, setLines] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
+  const gameLoopRef = useRef(null);
 
   const getDropInterval = useCallback(() => {
     return Math.max(100, 1000 - (level - 1) * 100);
@@ -290,6 +290,7 @@ export default function CopilotTetris() {
       return;
     }
 
+    // @ts-ignore
     gameLoopRef.current = setInterval(() => {
       dropTetromino();
     }, getDropInterval());

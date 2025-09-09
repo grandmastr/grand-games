@@ -107,7 +107,7 @@ export default function ElasticTetris() {
   const [level, setLevel] = useState(1);
   const [gameOver, setGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
+  const gameLoopRef = useRef(null);
 
   const isValidPosition = useCallback((tetromino: Tetromino, board: (string | null)[][]): boolean => {
     for (let y = 0; y < tetromino.shape.length; y++) {
