@@ -263,6 +263,7 @@ export default function ElasticTetris() {
     }
     
     const speed = Math.max(50, 1000 - (level - 1) * 100);
+    // @ts-ignore
     gameLoopRef.current = setInterval(gameLoop, speed);
     
     return () => {
