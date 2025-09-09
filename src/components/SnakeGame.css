@@ -1,0 +1,104 @@
+.snake-game-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.snake-game-container h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.snake-game-board {
+  position: relative;
+  margin: 0 auto 20px;
+  border: 3px solid #34495e;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.cell {
+  box-sizing: border-box;
+  border: 1px solid #2c3e50;
+  opacity: 0.3;
+}
+
+.cell.snake {
+  background-color: #27ae60 !important;
+  border: 1px solid #1e8449;
+  border-radius: 2px;
+  opacity: 1;
+  box-shadow: inset 0 0 3px rgba(255,255,255,0.3);
+}
+
+.cell.food {
+  background-color: #e74c3c !important;
+  border: 1px solid #c0392b;
+  border-radius: 50%;
+  opacity: 1;
+  animation: pulse 1s infinite;
+  box-shadow: 0 0 5px rgba(231, 76, 60, 0.6);
+}
+
+.snake-controls {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.snake-controls h3 {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+}
+
+.snake-controls p {
+  margin: 5px 0;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.game-over {
+  color: #e74c3c;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  animation: gameOverPulse 2s infinite;
+}
+
+.score-display {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 10px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.6);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.6);
+  }
+}
+
+@keyframes gameOverPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}

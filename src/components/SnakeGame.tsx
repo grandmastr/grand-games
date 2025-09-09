@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import './SnakeGame.css';
 
 interface Coordinate {
   x: number;
@@ -22,6 +23,7 @@ export default function SnakeGame() {
   const [direction, setDirection] = useState<Coordinate>(INITIAL_DIRECTION);
   const [food, setFood] = useState<Coordinate>(getRandomCoordinate);
   const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState(0);
   const boardRef = useRef<HTMLDivElement>(null);
 
   // Handle key presses for direction
@@ -76,6 +78,7 @@ export default function SnakeGame() {
         // Check if we eat the food
         if (newHead.x === food.x && newHead.y === food.y) {
           setFood(getRandomCoordinate());
+          setScore(prevScore => prevScore + 10);
         } else {
           newSnake.pop(); // remove tail
         }
@@ -87,7 +90,7 @@ export default function SnakeGame() {
   }, [direction, food, gameOver]);
 
   // Render board cells
-  const cells: JSX.Element[] = [];
+  const cells: React.ReactElement[] = [];
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
       let className = 'cell';
@@ -106,24 +109,63 @@ export default function SnakeGame() {
     }
   }
 
+  const resetGame = () => {
+    setSnake(INITIAL_SNAKE);
+    setDirection(INITIAL_DIRECTION);
+    setFood(getRandomCoordinate());
+    setGameOver(false);
+    setScore(0);
+  };
+
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div className="snake-game-container">
       <h2>Snake Game</h2>
+      
+      <div className="score-display">
+        Score: {score} | Length: {snake.length}
+      </div>
+      
       <div
         ref={boardRef}
+        className="snake-game-board"
         style={{
-          position: 'relative',
           width: GRID_SIZE * CELL_SIZE,
           height: GRID_SIZE * CELL_SIZE,
-          margin: '0 auto',
-          backgroundColor: '#000',
+          backgroundColor: '#2c3e50',
           display: 'flex',
           flexWrap: 'wrap',
         }}
       >
         {cells}
       </div>
-      {gameOver && <h3 style={{ color: 'red' }}>Game Over</h3>}
+      
+      {gameOver && (
+        <div>
+          <h3 className="game-over">Game Over!</h3>
+          <p>Final Score: {score}</p>
+          <button
+            onClick={resetGame}
+            style={{
+              padding: '10px 20px',
+              fontSize: '16px',
+              backgroundColor: '#27ae60',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              marginTop: '10px'
+            }}
+          >
+            Play Again
+          </button>
+        </div>
+      )}
+      
+      <div className="snake-controls">
+        <h3>Controls</h3>
+        <p>↑ ↓ ← → Arrow keys to move</p>
+        <p>Eat the red food to grow and score points!</p>
+      </div>
     </div>
   );
 }
